@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<test_data>
+    <search_criteria>
+        <search_value>Automation</search_value>
+        <city>Минск</city>
+        <filter>Тестирование</filter>
+        <sort>Горячие вакансии</sort>
+        <position>Senior Test Automation Engineer</position>
+    </search_criteria>
+    <search_criteria>
+        <search_value>Testing</search_value>
+        <city>США, все города</city>
+        <filter>Select all</filter>
+        <sort>По дате обновления</sort>
+        <position>Head of Engineering</position>
+    </search_criteria>
+    <search_criteria>
+        <search_value></search_value>
+        <city>Краков</city>
+        <filter>Обучение</filter>
+        <sort>Поддержка переезда</sort>
+        <position>Soft Skills Trainer</position>
+    </search_criteria>
+    <search_criteria>
+        <search_value>SQL</search_value>
+        <city>Все локации</city>
+        <filter></filter>
+        <sort>Лучшее совпадение</sort>
+        <position>MS SQL Database Administrator</position>
+    </search_criteria>
+</test_data>
