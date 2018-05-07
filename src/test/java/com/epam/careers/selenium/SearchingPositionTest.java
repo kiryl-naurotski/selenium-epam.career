@@ -1,22 +1,24 @@
 package com.epam.careers.selenium;
 
+import com.epam.careers.WebDriverFactory;
 import com.epam.careers.bo.SearchCriteria;
 import com.epam.careers.data.XmlDataProvider;
 import com.epam.careers.elements.OpenPositionItemElement;
 import com.epam.careers.pages.OpenPositionsPage;
 import com.epam.careers.pages.SearchPage;
+import com.epam.careers.utils.ScreenshotUtil;
+import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
+@Slf4j
 public class SearchingPositionTest {
     private WebDriver webDriver;
-    private WebDriverWait webDriverWait;
 
     @BeforeAll
     static void init() {
@@ -24,9 +26,8 @@ public class SearchingPositionTest {
     }
 
     @BeforeEach
-    void setup() {
-        webDriver = new ChromeDriver();
-        webDriverWait = new WebDriverWait(webDriver, 3);
+    void setup() throws Exception {
+        webDriver = WebDriverFactory.getWebDriver();
     }
 
     @AfterEach
@@ -49,7 +50,9 @@ public class SearchingPositionTest {
                 .sortBy(searchCriteria.getSort())
                 .getOpenPositionsWithTitle(searchCriteria.getPosition());
 
-        searchPositionList.forEach(item -> System.out.println(item.getPosition()));
-        Assertions.assertTrue(true);
+        val fileName = String.format("screenshots/%s_%s.png", searchCriteria.getPosition(), searchCriteria.getCity());
+        ScreenshotUtil.createAndSaveSnapshot(webDriver, fileName);
+        searchPositionList.forEach(item -> log.info(item.toString()));
+        Assertions.assertNotNull(searchPositionList);
     }
 }

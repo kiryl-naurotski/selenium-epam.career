@@ -1,6 +1,5 @@
 package com.epam.careers.data;
 
-import com.epam.careers.bo.SearchCriteria;
 import com.epam.careers.bo.TestData;
 import com.fasterxml.jackson.dataformat.xml.JacksonXmlModule;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
@@ -8,10 +7,7 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.net.URL;
-import java.util.List;
 import java.util.stream.Stream;
 
 public class XmlDataProvider implements ArgumentsProvider {
@@ -22,6 +18,6 @@ public class XmlDataProvider implements ArgumentsProvider {
         module.setDefaultUseWrapper(false);
         XmlMapper xmlMapper = new XmlMapper(module);
         TestData testData = xmlMapper.readValue(dataUrl, TestData.class);
-        return Stream.of(testData.getSearchCriteria()[0]).map(Arguments::of);
+        return Stream.of(testData.getSearchCriteria()).map(Arguments::of);
     }
 }
