@@ -5,7 +5,6 @@ import lombok.val;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -52,18 +51,15 @@ public class CareerSearchElement {
         }
 
         WebElement country = webDriver.findElement(By.xpath(String.format(COUNTRY_BASED_ON_CITY_LOCATOR, cityName)));
-        val countryName =  country.getAttribute("aria-label");
+        val countryName = country.getAttribute("aria-label");
         country.click();
 
-        country = webDriverWait.until(
+        webDriverWait.until(
                 ExpectedConditions.refreshed(
                         ExpectedConditions.visibilityOfElementLocated(
                                 By.cssSelector(
                                         String.format(ACTIVE_COUNTRY_LOCATOR, countryName)))));
 
-
-
-        //List<WebElement> citiesOptionsList = country.findElements(By.tagName("li"));
         List<WebElement> citiesOptionsList = webDriver.findElements(CITYS_SELECTOR);
 
         citiesOptionsList.stream()
@@ -81,8 +77,8 @@ public class CareerSearchElement {
         log.info(String.format("Select '%s' from filters list", filterName));
         webDriver.findElement(FILTERS_DROPDOWN_SELECTOR).click();
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(FILTER_WINDOW_SELECTOR));
-        ////div[@class='multi-select-dropdown']//span[contains(text(), '%s')]/preceding-sibling::input
-        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(String.format(FILTER_LOCATOR, filterName))));
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(String.format(FILTER_LOCATOR,
+                filterName))));
         webDriver.findElement(By.xpath(String.format(FILTER_LOCATOR, filterName))).click();
         return this;
     }

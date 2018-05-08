@@ -1,15 +1,11 @@
 package com.epam.careers.elements;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,7 +32,6 @@ public class CareerSearchResultHeaderElement {
         log.info(String.format("Sort results by '%s'", sort));
         webDriver.findElement(By.xpath(String.format(SORT_LOCATOR, sort))).click();
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(POSITION_LIST_LOADER_SELECTOR));
-        //webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='sort-by']//span[@title='Горячие вакансии' and contains(@class, 'active')]")));
         webDriverWait.until(ExpectedConditions.invisibilityOfElementLocated(POSITION_LIST_LOADER_SELECTOR));
         webDriverWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(OPEN_POSITIONS_LIST_SELECTOR));
         return this;
@@ -49,8 +44,11 @@ public class CareerSearchResultHeaderElement {
     }
 
     public List<OpenPositionItemElement> getOpenPositionsWithTitle(String title) {
-        return getAllOpenPosition().stream()
+        List<OpenPositionItemElement> openPositionItemsList = getAllOpenPosition().stream()
                 .filter(item -> item.getPosition().toLowerCase().contains(title.toLowerCase()))
                 .collect(Collectors.toList());
+
+        openPositionItemsList.forEach(item -> log.info(item.toString()));
+        return openPositionItemsList;
     }
 }

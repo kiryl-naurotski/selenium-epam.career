@@ -1,6 +1,6 @@
 package com.epam.careers.data;
 
-import com.epam.careers.bo.TestData;
+import com.epam.careers.bo.xml.TestData;
 import com.fasterxml.jackson.dataformat.xml.JacksonXmlModule;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.junit.jupiter.api.extension.ExtensionContext;

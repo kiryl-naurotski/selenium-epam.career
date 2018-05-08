@@ -5,6 +5,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class WebDriverFactory {
+    private WebDriverFactory() {
+    }
+
     public static WebDriver getWebDriver() throws Exception {
         String browserName = System.getProperty("browserName");
         if(browserName == null || browserName.isEmpty()) {

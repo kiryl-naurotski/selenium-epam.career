@@ -1,4 +1,4 @@
-package com.epam.careers.bo;
+package com.epam.careers.bo.xml;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import lombok.Getter;

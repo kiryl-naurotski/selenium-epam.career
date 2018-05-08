@@ -17,7 +17,6 @@ dependencies {
             "org.projectlombok:lombok:+",
             "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:+",
             "org.seleniumhq.selenium:selenium-java:+",
-            "ru.stqa.selenium:decorated-webdriver:4.0",
             "org.junit.jupiter:junit-jupiter-params:+",
             "org.junit.jupiter:junit-jupiter-api:+",
             "commons-io:commons-io:+",
@@ -31,11 +30,16 @@ task deleteFolders(type: Delete) {
 }
 
 test {
+    testLogging {
+        showStandardStreams true
+        exceptionFormat 'full'
+    }
     dependsOn deleteFolders
     systemProperty "browserName", System.getProperty("browserName")
     useJUnitPlatform()
 }
-test.dependsOn deleteFolders
+
 webdriverBinaries {
     chromedriver '2.38'
+    geckodriver '0.20.1'
 }
