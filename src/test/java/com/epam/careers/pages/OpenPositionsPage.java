@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class OpenPositionsPage {
-    private static final By CAREER_SEARCH_RESULT_HEADER_SELECTOR = By.cssSelector("div.career-search-result span.searched-for");
+    private static final By CAREER_SEARCH_RESULT_HEADER_SELECTOR = By.cssSelector("div.career-search-result > div.search-result-header");
     private WebDriver webDriver;
     private WebDriverWait webDriverWait;
 

@@ -26,11 +26,16 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:+'
 }
 
+task deleteFolders(type: Delete) {
+    delete 'logs', 'screenshots'
+}
+
 test {
+    dependsOn deleteFolders
     systemProperty "browserName", System.getProperty("browserName")
     useJUnitPlatform()
 }
-
+test.dependsOn deleteFolders
 webdriverBinaries {
     chromedriver '2.38'
 }

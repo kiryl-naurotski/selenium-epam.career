@@ -20,11 +20,6 @@ import java.util.List;
 public class SearchingPositionTest {
     private WebDriver webDriver;
 
-    @BeforeAll
-    static void init() {
-        System.setProperty("webdriver.chrome.driver", System.getProperty("user.home") + "/chromedriver");
-    }
-
     @BeforeEach
     void setup() throws Exception {
         webDriver = WebDriverFactory.getWebDriver();

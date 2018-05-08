@@ -1,9 +1,11 @@
 package com.epam.careers.elements;
 
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -30,7 +32,7 @@ public class CareerSearchElement {
     }
 
     public CareerSearchElement setKeyword(String keyword) {
-        if(keyword.isEmpty()) {
+        if (keyword.isEmpty()) {
             return this;
         }
         log.info(String.format("Type keyword: '%s' into Keyword Field", keyword));
@@ -42,20 +44,38 @@ public class CareerSearchElement {
         log.info(String.format("Select '%s' from Cities dropdown list", cityName));
         webDriver.findElement(By.cssSelector("div.select-box-selection")).click();
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(CITY_DROPDOWN_SELECTOR));
+
+        WebElement cityToSelect = webDriver.findElement(By.xpath(String.format(CITY_LOCATOR, cityName)));
+        if (!cityToSelect.getText().isEmpty()) {
+            cityToSelect.click();
+            return this;
+        }
+
         WebElement country = webDriver.findElement(By.xpath(String.format(COUNTRY_BASED_ON_CITY_LOCATOR, cityName)));
+        val countryName =  country.getAttribute("aria-label");
         country.click();
-        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(String.format(ACTIVE_COUNTRY_LOCATOR, country.getAttribute("aria-label")))));
+
+        country = webDriverWait.until(
+                ExpectedConditions.refreshed(
+                        ExpectedConditions.visibilityOfElementLocated(
+                                By.cssSelector(
+                                        String.format(ACTIVE_COUNTRY_LOCATOR, countryName)))));
+
+
+
+        //List<WebElement> citiesOptionsList = country.findElements(By.tagName("li"));
         List<WebElement> citiesOptionsList = webDriver.findElements(CITYS_SELECTOR);
+
         citiesOptionsList.stream()
                 .filter(webElement -> webElement.getText().equalsIgnoreCase(cityName))
                 .findFirst()
-                .get()
-                .click();
+                .get().click();
+
         return this;
     }
 
     public CareerSearchElement selectFilters(String filterName) {
-        if(filterName.isEmpty() || filterName.equalsIgnoreCase("Select all")) {
+        if (filterName.isEmpty() || filterName.equalsIgnoreCase("Select all")) {
             return this;
         }
         log.info(String.format("Select '%s' from filters list", filterName));

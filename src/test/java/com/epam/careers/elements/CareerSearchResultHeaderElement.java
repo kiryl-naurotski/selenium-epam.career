@@ -30,7 +30,7 @@ public class CareerSearchResultHeaderElement {
     }
 
     public CareerSearchResultHeaderElement sortBy(String sort) {
-        if(webDriver.findElement(ACTIVE_SORT_LOCATOR).getText().equalsIgnoreCase(sort)) {
+        if(webDriver.findElement(ACTIVE_SORT_LOCATOR).getAttribute("title").equalsIgnoreCase(sort)) {
             return this;
         }
         log.info(String.format("Sort results by '%s'", sort));
